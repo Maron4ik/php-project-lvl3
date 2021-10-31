@@ -1,5 +1,8 @@
+tinker:
+	php artisan tinker
+
 start:
-	php artisan serve --host 0.0.0.0
+	php artisan serve --host localhost:8080
 
 setup:
 	composer install
@@ -29,7 +32,7 @@ deploy:
 	git push heroku
 
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12 src bin
+	composer exec --verbose phpcs -- --standard=PSR12 routes
 
 lint-fix:
 	composer phpcbf
