@@ -21,8 +21,6 @@ class UrlChecks extends Migration
             $table->string('title', 255)->nullable();
             $table->string('description', 1000)->nullable();
             $table->timestamps();
-
-//            $table->foreignId('domain_id')->constrained();
         });
     }
 

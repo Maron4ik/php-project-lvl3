@@ -14,7 +14,7 @@ class Urls extends Migration
     public function up()
     {
         Schema::create('urls', function (Blueprint $table) {
-            $table->id()->startingValue(1001);
+            $table->id();
             $table->string('name', 255)->unique();
             $table->timestamps();
         });
