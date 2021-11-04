@@ -2894,6 +2894,18 @@
         </div>
     </nav>
 </header>
+{{--@if($errors->any())--}}
+{{--    <div class="alert alert-danger fs-2">--}}
+{{--        <ul>--}}
+{{--            @foreach($errors->all() as $message)--}}
+{{--                <li>--}}
+{{--                    {{ $message }}--}}
+{{--                </li>--}}
+{{--            @endforeach--}}
+{{--        </ul>--}}
+{{--    </div>--}}
+{{--@endif--}}
+@include('flash::message')
 <main class="flex-grow-1">
     <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="container-lg">
@@ -2907,28 +2919,6 @@
                                placeholder="https://www.example.com">
                         <button type="submit" class="btn btn-lg btn-primary ml-3 px-5 text-uppercase">Проверить</button>
                     </form>
-                    @if($errors->any())
-                        <div class="alert alert-danger fs-2">
-                            <ul>
-                                @foreach($errors->all() as $message)
-                                    <li>
-                                        {{ $message }}
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                            {{--                        {{ $errors->first() }}--}}
-                            {{--                        @include('flash::message')--}}
-                            {{--                        <p>Error</p>--}}
-                            @else
-                        <div class="alert alert-success text-uppercase fs-2">
-                            domain added
-                        </div>
-
-
-
-                    @endif
-
                 </div>
             </div>
         </div>

@@ -9,13 +9,13 @@
 
     <!-- Scripts -->
     <script src="https://php-l3-page-analyzer.herokuapp.com/js/app.js" defer=""></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="https://php-l3-page-analyzer.herokuapp.com/css/app.css" rel="stylesheet">
     <style data-styled="" data-styled-version="4.4.1">
         /* sc-component-id: sc-global-2423173963 */
@@ -900,7 +900,22 @@
         </div>
     </nav>
 </header>
-
+{{--@if($errors->any())--}}
+{{--    <div class="alert alert-danger fs-2">--}}
+{{--        <ul>--}}
+{{--            @foreach($errors->all() as $message)--}}
+{{--                <li>--}}
+{{--                    {{ $message }}--}}
+{{--                </li>--}}
+{{--            @endforeach--}}
+{{--        </ul>--}}
+{{--    </div>--}}
+{{--@else--}}
+{{--    <div class="alert alert-success text-uppercase fs-2">--}}
+{{--        domain added--}}
+{{--    </div>--}}
+{{--@endif--}}
+@include('flash::message')
 <main class="flex-grow-1">
     <div class="container-lg">
         <h1 class="mt-5 mb-3">Сайт: {{ $name->name }}</h1>
@@ -921,7 +936,7 @@
                 </tbody></table>
         </div>
         <h2 class="mt-5 mb-3">Проверки</h2>
-{{--        <form method="post" action="/urls/{{ $name->id }}/checks">--}}
+        @include('flash::message')
         <form method="post" action="{{ route('url.checks', ['id' => $name->id]) }}">
             @csrf
             <input type="submit" class="btn btn-primary" value="Запустить проверку">

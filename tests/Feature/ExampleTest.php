@@ -5,7 +5,10 @@ namespace Tests\Feature;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
+
+use function GuzzleHttp\Promise\task;
 
 class ExampleTest extends TestCase
 {
@@ -34,7 +37,7 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/urls/22');
 
-        $response->assertStatus(403);
+        $response->assertStatus(404);
     }
 
     public function testIdPathForbidden(): void
@@ -87,13 +90,35 @@ class ExampleTest extends TestCase
             'updated_at' => CarbonImmutable::now()
         ]);
 
-        $checks = DB::table('urls_checks')->insertGetId([
-            'urls_id' => $id,
-            'created_at' => CarbonImmutable::now(),
-            'updated_at' => CarbonImmutable::now()
-        ]);
+        /**task
+         * 1. Создали заглушку что при HTTP запросе вернется заранее прописанные данные
+         */
+        Http::fake(function ($request) {
+            return Http::response('Hello World', 200);
+        });
 
-        $this->assertDatabaseCount('urls_checks', 1);
+        /**task
+         * 1. followingRedirects - разрешает тесту пользоваться редиректами
+         * 2. Делает пост запрос по роуту url.checks с передачей требуемых данных
+         * 3. обработчик должен делать запрос во вне, но из-за заглушки он получает наши фейковые данные
+         * 4. создает результат проверки url и сохраняет в БД
+         */
+        $response = $this
+            ->followingRedirects()
+            ->post(route('url.checks', ['id' => $id]))->assertStatus(200);
+        /**task добавить flash сообщения
+         * добавить под каждым запросом $response->assertSessionHasNoErrors();
+         */
+//        $response->assertSessionHasNoErrors();
+        /**task
+         * 1. добавить данные
+         */
+        $this->assertDatabaseHas('urls_checks', [
+            'status_code' => 200,
+            'h1' => null, //TODO
+            'title' => null,  //TODO
+            'description' => null,  //TODO
+        ]);
     }
 
     public function testViewPageOnCheck(): void
@@ -116,4 +141,13 @@ class ExampleTest extends TestCase
 //        dd($response->getContent());
         $response->assertSeeText('1')->assertStatus(200);
     }
+
+
+//    public function testCheck(): void
+//    {
+//        Http::fake([
+//            '*' => Http::response(['foo' => 'bar'], 200),
+//        ]);
+//
+//    }
 }

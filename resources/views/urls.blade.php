@@ -10,13 +10,13 @@
 
         <!-- Scripts -->
         <script src="https://php-l3-page-analyzer.herokuapp.com/js/app.js" defer=""></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="https://php-l3-page-analyzer.herokuapp.com/css/app.css" rel="stylesheet">
         <style data-styled="" data-styled-version="4.4.1">
             /* sc-component-id: sc-global-2423173963 */

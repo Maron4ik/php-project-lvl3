@@ -4,6 +4,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,7 @@ Route::post('/', function (Request $request, Response $response) {
 
     if ($url) {
         $id = $url->id;
+        flash('Сайт существует')->success();
         return redirect('urls/' . $id);
     }
 
@@ -43,7 +45,7 @@ Route::post('/', function (Request $request, Response $response) {
         'created_at' => CarbonImmutable::now(),
         'updated_at' => CarbonImmutable::now()
     ]);
-
+    flash('Сайт добавлен')->success();
     return redirect(route('url.show', ['id' => $id]));
 })->name('url');
 
@@ -60,7 +62,7 @@ Route::get('/urls/{id}', function (Request $request, Response $response) {
     $id = $request->route('id');
     if (!DB::table('urls')->find($id)) {
 
-        return response('Такого адреса не существует', 403)
+        return response('Такого адреса не существует', 404)
             ->header('Content-Type', 'text/plain');
     }
 //guard expression
@@ -77,16 +79,21 @@ Route::get('/urls/{id}', function (Request $request, Response $response) {
 
 
 Route::post('urls/{id}/checks', function (Request $request) {
-    $urlsId = $request->route('id');
+
+    $urlId = $request->route('id');
+//    $url = DB::table('urls')->where('id', $urlsId)->first();
+    $url = DB::table('urls')->find($urlId);
+    $domain = $url->name;
+    $status = Http::get($domain)->status();
 
     $id2 = DB::table('urls_checks')->insertGetId([
-        'urls_id' => $urlsId,
+        'urls_id' => $urlId,
+        'status_code' => $status,
         'created_at' => CarbonImmutable::now(),
         'updated_at' => CarbonImmutable::now(),
     ]);
-
-
-    return redirect()->route('url.show', ['id' => $urlsId]);
+    flash('Страница успешно проверенна!')->success();
+    return redirect()->route('url.show', ['id' => $urlId]);
 })->name('url.checks');
 
 
