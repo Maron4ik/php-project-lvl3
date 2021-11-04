@@ -134,23 +134,23 @@ class ExampleTest extends TestCase
         ]);
     }
 
-    public function testViewPageOnCheck(): void
-    {
-
-        $domainName = "https://google.com";
-        $id = DB::table('urls')->insertGetId([
-            'name' => $domainName,
-            'created_at' => CarbonImmutable::now(),
-            'updated_at' => CarbonImmutable::now()
-        ]);
-        $checks = DB::table('urls_checks')->insertGetId([
-            'urls_id' => $id,
-            'created_at' => CarbonImmutable::now(),
-            'updated_at' => CarbonImmutable::now()
-        ]);
-        $response = $this
-            ->get('urls/1', ['url' => ['name' => $domainName]]);
-        $response->assertSeeText('1')->assertStatus(200);
-        $response->assertSessionHasNoErrors();
-    }
-}
+//    public function testViewPageOnCheck(): void
+//    {
+//
+//        $domainName = "https://google.com";
+//        $id = DB::table('urls')->insertGetId([
+//            'name' => $domainName,
+//            'created_at' => CarbonImmutable::now(),
+//            'updated_at' => CarbonImmutable::now()
+//        ]);
+//        $checks = DB::table('urls_checks')->insertGetId([
+//            'urls_id' => $id,
+//            'created_at' => CarbonImmutable::now(),
+//            'updated_at' => CarbonImmutable::now()
+//        ]);
+//        $response = $this
+//            ->get('urls/1', ['url' => ['name' => $domainName]]);
+//        $response->assertSeeText('1')->assertStatus(200);
+//        $response->assertSessionHasNoErrors();
+//    }
+//}
