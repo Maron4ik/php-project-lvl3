@@ -15,12 +15,10 @@ use function GuzzleHttp\Promise\task;
 
 class ExampleTest extends TestCase
 {
-
+    use CreatesApplication;
     use DatabaseTransactions;
 //    use RefreshDatabase;
     use DatabaseMigrations;
-    use CreatesApplication;
-
 
     /**
      * A basic test example.
