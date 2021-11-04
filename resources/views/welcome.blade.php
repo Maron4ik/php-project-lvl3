@@ -2894,17 +2894,17 @@
         </div>
     </nav>
 </header>
-{{--@if($errors->any())--}}
-{{--    <div class="alert alert-danger fs-2">--}}
-{{--        <ul>--}}
-{{--            @foreach($errors->all() as $message)--}}
-{{--                <li>--}}
-{{--                    {{ $message }}--}}
-{{--                </li>--}}
-{{--            @endforeach--}}
-{{--        </ul>--}}
-{{--    </div>--}}
-{{--@endif--}}
+@if($errors->any())
+    <div class="alert alert-danger fs-2">
+        <ul>
+            @foreach($errors->all() as $message)
+                <li>
+                    {{ $message }}
+                </li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 @include('flash::message')
 <main class="flex-grow-1">
     <div class="jumbotron jumbotron-fluid bg-dark">
