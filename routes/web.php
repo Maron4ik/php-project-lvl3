@@ -1,14 +1,10 @@
 <?php
 
-use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +22,6 @@ Route::get('/', function () {
 })->name('home');
 
 Route::post('/', function (Request $request, Response $response) {
-
     $name = $request->url;
 
     $validated = validator($name, [
@@ -49,29 +44,52 @@ Route::post('/', function (Request $request, Response $response) {
         'updated_at' => CarbonImmutable::now()
     ]);
 
-    return redirect(route('url.show',  ['id' => $id]));
+    return redirect(route('url.show', ['id' => $id]));
 })->name('url');
 
-Route::get('/urls', function (Request $request, Response $response) {
 
+
+Route::get('/urls', function (Request $request, Response $response) {
     $names = DB::table('urls')
         ->get();
     return view('urls', ['names' => $names]);
 })->name('urls');
 
 Route::get('/urls/{id}', function (Request $request, Response $response) {
-    route('url.show',  ['id' => 2, 'page' => 1]);
+    route('url.show', ['id' => 2, 'page' => 1]);
     $id = $request->route('id');
-    if (DB::table('urls')->find($id)) {
-        $name = DB::table('urls')
-            ->where('id', '=', $id)
-            ->get();
-        return view('url', ['name' => $name[0]]);
+    if (!DB::table('urls')->find($id)) {
+
+        return response('Такого адреса не существует', 403)
+            ->header('Content-Type', 'text/plain');
     }
-    return response('Такого адреса не существует', 403)
-        ->header('Content-Type', 'text/plain');
+//guard expression
+    $checks = DB::table('urls_checks')
+        ->where('urls_id', '=', $id)
+        ->get();
+
+    $name = DB::table('urls')
+        ->where('id', '=', $id)
+        ->get();
+    return view('url', ['name' => $name[0], 'checks' => $checks]);
+
 })->name('url.show');
 
-Route::fallback(function () {
-    return view('welcome');
-});
+
+Route::post('urls/{id}/checks', function (Request $request) {
+    $urlsId = $request->route('id');
+
+    $id2 = DB::table('urls_checks')->insertGetId([
+        'urls_id' => $urlsId,
+        'created_at' => CarbonImmutable::now(),
+        'updated_at' => CarbonImmutable::now(),
+    ]);
+
+
+    return redirect()->route('url.show', ['id' => $urlsId]);
+})->name('url.checks');
+
+
+//Route::fallback(function () {
+//    return view('welcome');
+//});

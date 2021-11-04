@@ -30,7 +30,7 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testIdPath()
+    public function testIdPath(): void
     {
         $response = $this->get('/urls/22');
 
@@ -39,9 +39,9 @@ class ExampleTest extends TestCase
 
     public function testIdPathForbidden(): void
     {
-        $response = $this->get('/urls/fghf');
+        $response = $this->get('/urls/fight');
 
-        $response->assertForbidden();
+        $response->assertStatus(404);
     }
 
     public function testCreateUrl(): void
@@ -70,10 +70,50 @@ class ExampleTest extends TestCase
         $response = $this
             ->post('/', ['url' => ['name' => $domainName]])
             ->assertRedirect(route('url.show', ['id' => $id]));
-;
 
 //        $response->assertSeeText($domainName);
-
         $this->assertDatabaseCount('urls', 1);
+    }
+/**task
+ * 1. Проверить что создается запись в БД urls_checks при отправке POST
+ * 2. Проверить что на странице urls/{id} создана запись
+ */
+    public function testCreateCheck(): void
+    {
+        $domainName = "https://google.com";
+        $id = DB::table('urls')->insertGetId([
+            'name' => $domainName,
+            'created_at' => CarbonImmutable::now(),
+            'updated_at' => CarbonImmutable::now()
+        ]);
+
+        $checks = DB::table('urls_checks')->insertGetId([
+            'urls_id' => $id,
+            'created_at' => CarbonImmutable::now(),
+            'updated_at' => CarbonImmutable::now()
+        ]);
+
+        $this->assertDatabaseCount('urls_checks', 1);
+    }
+
+    public function testViewPageOnCheck(): void
+    {
+
+        $domainName = "https://google.com";
+        $id = DB::table('urls')->insertGetId([
+            'name' => $domainName,
+            'created_at' => CarbonImmutable::now(),
+            'updated_at' => CarbonImmutable::now()
+        ]);
+        $checks = DB::table('urls_checks')->insertGetId([
+            'urls_id' => $id,
+            'created_at' => CarbonImmutable::now(),
+            'updated_at' => CarbonImmutable::now()
+        ]);
+
+        $response = $this
+            ->get('urls/1', ['url' => ['name' => $domainName]]);
+//        dd($response->getContent());
+        $response->assertSeeText('1')->assertStatus(200);
     }
 }
