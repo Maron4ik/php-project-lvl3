@@ -22,29 +22,29 @@ class ExampleTest extends TestCase
     public function testMainPath(): void
     {
         $response = $this->get('/');
-
         $response->assertStatus(200);
+        $response->assertSessionHasNoErrors();
     }
 
     public function testUrlsPath(): void
     {
         $response = $this->get('/urls');
-
         $response->assertStatus(200);
+        $response->assertSessionHasNoErrors();
     }
 
     public function testIdPath(): void
     {
         $response = $this->get('/urls/22');
-
         $response->assertStatus(404);
+        $response->assertSessionHasNoErrors();
     }
 
     public function testIdPathForbidden(): void
     {
         $response = $this->get('/urls/fight');
-
         $response->assertStatus(404);
+        $response->assertSessionHasNoErrors();
     }
 
     public function testCreateUrl(): void
@@ -54,6 +54,7 @@ class ExampleTest extends TestCase
             ->followingRedirects()
             ->post('/', ['url' => ['name' => $domainName]])
             ->assertStatus(200);
+        $response->assertSessionHasNoErrors();
 
         $response->assertSeeText($domainName);
 
@@ -73,6 +74,7 @@ class ExampleTest extends TestCase
         $response = $this
             ->post('/', ['url' => ['name' => $domainName]])
             ->assertRedirect(route('url.show', ['id' => $id]));
+        $response->assertSessionHasNoErrors();
 
 //        $response->assertSeeText($domainName);
         $this->assertDatabaseCount('urls', 1);
@@ -110,6 +112,7 @@ class ExampleTest extends TestCase
         $response = $this
             ->followingRedirects()
             ->post(route('url.checks', ['id' => $id]))->assertStatus(200);
+        $response->assertSessionHasNoErrors();
         /**task добавить flash сообщения
          * добавить под каждым запросом $response->assertSessionHasNoErrors();
          */
@@ -139,21 +142,9 @@ class ExampleTest extends TestCase
             'created_at' => CarbonImmutable::now(),
             'updated_at' => CarbonImmutable::now()
         ]);
-
         $response = $this
             ->get('urls/1', ['url' => ['name' => $domainName]]);
-//        dd($response->getContent());
         $response->assertSeeText('1')->assertStatus(200);
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect();
     }
-
-
-//    public function testCheck(): void
-//    {
-//        Http::fake([
-//            '*' => Http::response(['foo' => 'bar'], 200),
-//        ]);
-//
-//    }
 }
