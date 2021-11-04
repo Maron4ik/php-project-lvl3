@@ -93,8 +93,12 @@ class ExampleTest extends TestCase
         /**task
          * 1. Создали заглушку что при HTTP запросе вернется заранее прописанные данные
          */
-        Http::fake(function ($request) {
-            return Http::response('Hello World', 200);
+        $testHtml = file_get_contents(__DIR__ . '/../fixtures/test.html');
+//        Http::fake([
+//            $this->url => Http::response($testHtml, 200)
+//        ]);
+        Http::fake(function ($request) use ($testHtml) {
+            return Http::response( $testHtml, 200);
         });
 
         /**task
@@ -115,9 +119,9 @@ class ExampleTest extends TestCase
          */
         $this->assertDatabaseHas('urls_checks', [
             'status_code' => 200,
-            'h1' => null, //TODO
-            'title' => null,  //TODO
-            'description' => null,  //TODO
+            'h1' => 'test h1', //TODO
+            'title' => 'one, two, three',  //TODO
+            'description' => 'test description',  //TODO
         ]);
     }
 
@@ -140,6 +144,8 @@ class ExampleTest extends TestCase
             ->get('urls/1', ['url' => ['name' => $domainName]]);
 //        dd($response->getContent());
         $response->assertSeeText('1')->assertStatus(200);
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
     }
 
 
