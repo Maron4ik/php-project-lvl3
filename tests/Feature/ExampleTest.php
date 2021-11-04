@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+//use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -15,10 +15,10 @@ use function GuzzleHttp\Promise\task;
 
 class ExampleTest extends TestCase
 {
-    use CreatesApplication;
-    use DatabaseTransactions;
-//    use RefreshDatabase;
-    use DatabaseMigrations;
+//    use CreatesApplication;
+//    use DatabaseTransactions;
+//    use DatabaseMigrations;
+    //    use RefreshDatabase;
 
     /**
      * A basic test example.
