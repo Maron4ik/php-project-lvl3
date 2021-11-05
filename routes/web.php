@@ -47,7 +47,7 @@ Route::get('/urls/{id}', function (Request $request, Response $response) {
         return response('Такого адреса не существует', 404)
             ->header('Content-Type', 'text/plain');
     }
-    $checks = DB::table('urls_checks')
+    $checks = DB::table('url_checks')
         ->where('url_id', '=', $id)
         ->get();
     $name = DB::table('urls')
@@ -67,7 +67,7 @@ Route::post('urls/{id}/checks', function (Request $request) {
     $h1 = optional($document->first('h1'))->text();
     $title = optional($document->first('meta[name=keywords]'))->attr('content');
     $description = optional($document->first('meta[name=description]'))->attr('content');
-    $id2 = DB::table('urls_checks')->insertGetId([
+    $id2 = DB::table('url_checks')->insertGetId([
         'url_id' => $urlId,
         'status_code' => $status,
         'h1' => $h1,

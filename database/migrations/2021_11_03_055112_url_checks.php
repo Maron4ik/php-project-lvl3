@@ -13,7 +13,7 @@ class UrlChecks extends Migration
      */
     public function up()
     {
-        Schema::create('urls_checks', function (Blueprint $table) {
+        Schema::create('url_checks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('url_id')->references('id')->on('urls');
             $table->string('status_code', 3)->nullable();
@@ -31,6 +31,6 @@ class UrlChecks extends Migration
      */
     public function down()
     {
-        Schema::drop('urls_checks');
+        Schema::drop('url_checks');
     }
 }

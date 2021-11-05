@@ -87,7 +87,7 @@ class ExampleTest extends TestCase
         $this->assertDatabaseCount('urls', 1);
     }
 /**task
- * 1. Проверить что создается запись в БД urls_checks при отправке POST
+ * 1. Проверить что создается запись в БД url_checks при отправке POST
  * 2. Проверить что на странице urls/{id} создана запись
  */
     public function testCreateCheck(): void
@@ -127,7 +127,7 @@ class ExampleTest extends TestCase
         /**task
          * 1. добавить данные
          */
-        $this->assertDatabaseHas('urls_checks', [
+        $this->assertDatabaseHas('url_checks', [
             'status_code' => 200,
             'h1' => 'test h1', //TODO
             'title' => 'one, two, three',  //TODO
@@ -143,7 +143,7 @@ class ExampleTest extends TestCase
             'created_at' => CarbonImmutable::now(),
             'updated_at' => CarbonImmutable::now()
         ]);
-        $checks = DB::table('urls_checks')->insertGetId([
+        $checks = DB::table('url_checks')->insertGetId([
             'url_id' => $id,
             'created_at' => CarbonImmutable::now(),
             'updated_at' => CarbonImmutable::now()
