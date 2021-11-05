@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home.index');
 
-Route::post('/', function (Request $request, Response $response) {
+Route::post('/urls', function (Request $request, Response $response) {
     $name = $request->url;
     $validated = validator($name, [
         'name' => ['required', 'string', 'max:255', 'url']

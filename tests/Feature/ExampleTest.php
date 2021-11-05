@@ -54,7 +54,7 @@ class ExampleTest extends TestCase
         $domainName = "https://google.com";
         $response = $this
             ->followingRedirects()
-            ->post('/', ['url' => ['name' => $domainName]])
+            ->post('/urls', ['url' => ['name' => $domainName]])
             ->assertStatus(200);
         $response->assertSessionHasNoErrors();
 
@@ -74,7 +74,7 @@ class ExampleTest extends TestCase
         ]);
 
         $response = $this
-            ->post('/', ['url' => ['name' => $domainName]])
+            ->post('/urls', ['url' => ['name' => $domainName]])
             ->assertRedirect(route('urls.show', ['id' => $id]));
         $response->assertSessionHasNoErrors();
 
