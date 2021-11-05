@@ -14,7 +14,7 @@ Route::get('/', function (): View {
     return view('welcome');
 })->name('home.index');
 
-Route::post('/urls', function (Request $request, Response $response): RedirectResponse {
+Route::post('/urls', function (Request $request): RedirectResponse {
     $name = $request->url;
     $validated = validator($name, [
         'name' => ['required', 'string', 'max:255', 'url']
@@ -42,7 +42,6 @@ Route::get('/urls', function (): View {
 })->name('urls.index');
 
 Route::get('/urls/{id}', function (Request $request) {
-    route('urls.show', ['id' => 2, 'page' => 1]);
     $id = $request->route('id');
     if (is_null(DB::table('urls')->find((int) $id))) {
         return response('Такого адреса не существует', 404)
