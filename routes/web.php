@@ -28,7 +28,6 @@ Route::post('/urls', function (Request $request, Response $response) {
     $id = DB::table('urls')->insertGetId([
         'name' => $host,
         'created_at' => CarbonImmutable::now(),
-        'updated_at' => CarbonImmutable::now()
     ]);
     flash('Сайт добавлен')->success();
     return redirect(route('urls.show', ['id' => $id]));
@@ -65,7 +64,7 @@ Route::post('urls/{id}/checks', function (Request $request) {
     $response_body = $data->body();
     $document = new Document($response_body);
     $h1 = optional($document->first('h1'))->text();
-    $title = optional($document->first('meta[name=keywords]'))->attr('content');
+    $title = optional($document->first('meta[name=title]'))->attr('content');
     $description = optional($document->first('meta[name=description]'))->attr('content');
     $id2 = DB::table('url_checks')->insertGetId([
         'url_id' => $urlId,
@@ -74,7 +73,6 @@ Route::post('urls/{id}/checks', function (Request $request) {
         'title' => $title,
         'description' => $description,
         'created_at' => CarbonImmutable::now(),
-        'updated_at' => CarbonImmutable::now(),
     ]);
     flash('Страница успешно проверенна!')->success();
     return redirect()->route('urls.show', ['id' => $urlId]);

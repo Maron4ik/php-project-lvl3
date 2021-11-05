@@ -70,7 +70,6 @@ class ExampleTest extends TestCase
         $id = DB::table('urls')->insertGetId([
             'name' => $domainName,
             'created_at' => CarbonImmutable::now(),
-            'updated_at' => CarbonImmutable::now()
         ]);
 
         $response = $this
@@ -91,16 +90,9 @@ class ExampleTest extends TestCase
         $id = DB::table('urls')->insertGetId([
             'name' => $domainName,
             'created_at' => CarbonImmutable::now(),
-            'updated_at' => CarbonImmutable::now()
         ]);
 
-        /**task
-         * 1. Создали заглушку что при HTTP запросе вернется заранее прописанные данные
-         */
         $testHtml = file_get_contents(__DIR__ . '/../fixtures/test.html');
-//        Http::fake([
-//            $this->url => Http::response($testHtml, 200)
-//        ]);
         Http::fake(function ($request) use ($testHtml) {
             return Http::response($testHtml, 200);
         });
@@ -136,12 +128,10 @@ class ExampleTest extends TestCase
         $id = DB::table('urls')->insertGetId([
             'name' => $domainName,
             'created_at' => CarbonImmutable::now(),
-            'updated_at' => CarbonImmutable::now()
         ]);
         $checks = DB::table('url_checks')->insertGetId([
             'url_id' => $id,
             'created_at' => CarbonImmutable::now(),
-            'updated_at' => CarbonImmutable::now()
         ]);
         $response = $this
             ->get('urls/1', ['url' => ['name' => $domainName]]);
