@@ -117,7 +117,7 @@ class ExampleTest extends TestCase
         $this->assertDatabaseHas('url_checks', [
             'status_code' => 200,
             'h1' => 'test h1', //TODO
-            'title' => 'one, two, three',  //TODO
+            'title' => 'test title',  //TODO
             'description' => 'test description',  //TODO
         ]);
     }

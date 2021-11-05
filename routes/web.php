@@ -64,7 +64,7 @@ Route::post('urls/{id}/checks', function (Request $request) {
     $response_body = $data->body();
     $document = new Document($response_body);
     $h1 = optional($document->first('h1'))->text();
-    $title = optional($document->first('meta[name=title]'))->attr('content');
+    $title = optional($document->first('title'))->text();
     $description = optional($document->first('meta[name=description]'))->attr('content');
     $id2 = DB::table('url_checks')->insertGetId([
         'url_id' => $urlId,
