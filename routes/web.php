@@ -23,7 +23,7 @@ Route::post('/', function (Request $request, Response $response) {
     if ($url) {
         $id = $url->id;
         flash('Сайт существует')->success();
-        return redirect('urls/' . $id);
+        return redirect(route('urls.show', ['id' => $id]));
     }
     $id = DB::table('urls')->insertGetId([
         'name' => $host,
@@ -31,17 +31,17 @@ Route::post('/', function (Request $request, Response $response) {
         'updated_at' => CarbonImmutable::now()
     ]);
     flash('Сайт добавлен')->success();
-    return redirect(route('url.show', ['id' => $id]));
+    return redirect(route('urls.show', ['id' => $id]));
 })->name('urls.store');
 
 Route::get('/urls', function (Request $request, Response $response) {
     $names = DB::table('urls')
         ->get();
     return view('urls', ['names' => $names]);
-})->name('urls');
+})->name('urls.index');
 
 Route::get('/urls/{id}', function (Request $request, Response $response) {
-    route('url.show', ['id' => 2, 'page' => 1]);
+    route('urls.show', ['id' => 2, 'page' => 1]);
     $id = $request->route('id');
     if (!DB::table('urls')->find($id)) {
         return response('Такого адреса не существует', 404)
@@ -54,7 +54,7 @@ Route::get('/urls/{id}', function (Request $request, Response $response) {
         ->where('id', '=', $id)
         ->get();
     return view('url', ['name' => $name[0], 'checks' => $checks]);
-})->name('url.show');
+})->name('urls.show');
 
 Route::post('urls/{id}/checks', function (Request $request) {
     $urlId = $request->route('id');
@@ -77,5 +77,5 @@ Route::post('urls/{id}/checks', function (Request $request) {
         'updated_at' => CarbonImmutable::now(),
     ]);
     flash('Страница успешно проверенна!')->success();
-    return redirect()->route('url.show', ['id' => $urlId]);
+    return redirect()->route('urls.show', ['id' => $urlId]);
 })->name('checks.store');

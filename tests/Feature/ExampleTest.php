@@ -75,7 +75,7 @@ class ExampleTest extends TestCase
 
         $response = $this
             ->post('/', ['url' => ['name' => $domainName]])
-            ->assertRedirect(route('url.show', ['id' => $id]));
+            ->assertRedirect(route('urls.show', ['id' => $id]));
         $response->assertSessionHasNoErrors();
 
 //        $response->assertSeeText($domainName);
