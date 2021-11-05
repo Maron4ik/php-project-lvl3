@@ -27,6 +27,7 @@ log:
 
 test:
 	php artisan test
+# --migrate-configuration
 
 deploy:
 	git push heroku
