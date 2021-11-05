@@ -937,7 +937,7 @@
         </div>
         <h2 class="mt-5 mb-3">Проверки</h2>
         @include('flash::message')
-        <form method="post" action="{{ route('url.checks', ['id' => $name->id]) }}">
+        <form method="post" action="{{ route('checks.store', ['id' => $name->id]) }}">
             @csrf
             <input type="submit" class="btn btn-primary" value="Запустить проверку">
         </form>

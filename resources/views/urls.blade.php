@@ -1811,44 +1811,6 @@
                 @endforeach
 
                 </tbody></table>
-            <nav>
-                <ul class="pagination">
-
-                    <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
-                        <span class="page-link" aria-hidden="true">‹</span>
-                    </li>
-
-
-
-
-
-                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=3">3</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=4">4</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=5">5</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=6">6</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=7">7</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=8">8</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=9">9</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=10">10</a></li>
-
-                    <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
-
-
-
-
-
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=19">19</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=20">20</a></li>
-
-
-                    <li class="page-item">
-                        <a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=2" rel="next" aria-label="Next »">›</a>
-                    </li>
-                </ul>
-            </nav>
-
         </div>
     </div>
 </main>

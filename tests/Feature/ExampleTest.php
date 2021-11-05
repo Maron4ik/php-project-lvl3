@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Carbon\CarbonImmutable;
-//use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -11,15 +10,11 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\CreatesApplication;
 
-//use function GuzzleHttp\Promise\task;
-
 class ExampleTest extends TestCase
 {
     use CreatesApplication;
     use DatabaseTransactions;
     use DatabaseMigrations;
-
-//        use RefreshDatabase;
 
     /**
      * A basic test example.
@@ -87,7 +82,7 @@ class ExampleTest extends TestCase
         $this->assertDatabaseCount('urls', 1);
     }
 /**task
- * 1. Проверить что создается запись в БД url_checks при отправке POST
+ * 1. Проверить что создается запись в БД urls_checks при отправке POST
  * 2. Проверить что на странице urls/{id} создана запись
  */
     public function testCreateCheck(): void
@@ -112,13 +107,13 @@ class ExampleTest extends TestCase
 
         /**task
          * 1. followingRedirects - разрешает тесту пользоваться редиректами
-         * 2. Делает пост запрос по роуту url.checks с передачей требуемых данных
+         * 2. Делает пост запрос по роуту checks.store с передачей требуемых данных
          * 3. обработчик должен делать запрос во вне, но из-за заглушки он получает наши фейковые данные
          * 4. создает результат проверки url и сохраняет в БД
          */
         $response = $this
             ->followingRedirects()
-            ->post(route('url.checks', ['id' => $id]))->assertStatus(200);
+            ->post(route('checks.store', ['id' => $id]))->assertStatus(200);
         $response->assertSessionHasNoErrors();
         /**task добавить flash сообщения
          * добавить под каждым запросом $response->assertSessionHasNoErrors();

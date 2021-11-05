@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('home.index');
 
 Route::post('/', function (Request $request, Response $response) {
     $name = $request->url;
@@ -32,7 +32,7 @@ Route::post('/', function (Request $request, Response $response) {
     ]);
     flash('Сайт добавлен')->success();
     return redirect(route('url.show', ['id' => $id]));
-})->name('url');
+})->name('urls.store');
 
 Route::get('/urls', function (Request $request, Response $response) {
     $names = DB::table('urls')
@@ -78,4 +78,4 @@ Route::post('urls/{id}/checks', function (Request $request) {
     ]);
     flash('Страница успешно проверенна!')->success();
     return redirect()->route('url.show', ['id' => $urlId]);
-})->name('url.checks');
+})->name('checks.store');
