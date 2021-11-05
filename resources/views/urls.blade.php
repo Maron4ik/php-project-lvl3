@@ -1803,7 +1803,7 @@
                 </tr>
                 @foreach($names as $name)
                     <tr>
-                        <td>{{ $name->name }}</td>
+                        <td>{{ $name->id}}</td>
                         <td><a href="/urls/{{ $name->id}}">{{ $name->name }}</a></td>
                         <td>{{ $name->created_at}} </td>
                         <td>200</td>
