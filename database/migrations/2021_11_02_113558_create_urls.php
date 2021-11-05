@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Urls extends Migration
+class CreateUrls extends Migration
 {
     /**
      * Run the migrations.
@@ -27,6 +27,6 @@ class Urls extends Migration
      */
     public function down()
     {
-        Schema::drop('urls');
+        Schema::dropIfExists('urls');
     }
 }
