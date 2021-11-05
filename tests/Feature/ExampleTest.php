@@ -144,7 +144,7 @@ class ExampleTest extends TestCase
             'updated_at' => CarbonImmutable::now()
         ]);
         $checks = DB::table('urls_checks')->insertGetId([
-            'urls_id' => $id,
+            'url_id' => $id,
             'created_at' => CarbonImmutable::now(),
             'updated_at' => CarbonImmutable::now()
         ]);

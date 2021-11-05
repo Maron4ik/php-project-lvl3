@@ -48,7 +48,7 @@ Route::get('/urls/{id}', function (Request $request, Response $response) {
             ->header('Content-Type', 'text/plain');
     }
     $checks = DB::table('urls_checks')
-        ->where('urls_id', '=', $id)
+        ->where('url_id', '=', $id)
         ->get();
     $name = DB::table('urls')
         ->where('id', '=', $id)
@@ -68,7 +68,7 @@ Route::post('urls/{id}/checks', function (Request $request) {
     $title = optional($document->first('meta[name=keywords]'))->attr('content');
     $description = optional($document->first('meta[name=description]'))->attr('content');
     $id2 = DB::table('urls_checks')->insertGetId([
-        'urls_id' => $urlId,
+        'url_id' => $urlId,
         'status_code' => $status,
         'h1' => $h1,
         'title' => $title,

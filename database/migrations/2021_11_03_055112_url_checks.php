@@ -15,7 +15,7 @@ class UrlChecks extends Migration
     {
         Schema::create('urls_checks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('urls_id')->references('id')->on('urls');
+            $table->foreignId('url_id')->references('id')->on('urls');
             $table->string('status_code', 3)->nullable();
             $table->string('h1', 255)->nullable();
             $table->string('title', 255)->nullable();
