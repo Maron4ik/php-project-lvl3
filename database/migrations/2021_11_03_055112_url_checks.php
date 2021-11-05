@@ -31,6 +31,6 @@ class UrlChecks extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('urls_checks');
+        Schema::drop('urls_checks');
     }
 }

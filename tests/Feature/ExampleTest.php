@@ -11,14 +11,15 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\CreatesApplication;
 
-use function GuzzleHttp\Promise\task;
+//use function GuzzleHttp\Promise\task;
 
 class ExampleTest extends TestCase
 {
     use CreatesApplication;
     use DatabaseTransactions;
     use DatabaseMigrations;
-    //    use RefreshDatabase;
+
+//        use RefreshDatabase;
 
     /**
      * A basic test example.
@@ -106,7 +107,7 @@ class ExampleTest extends TestCase
 //            $this->url => Http::response($testHtml, 200)
 //        ]);
         Http::fake(function ($request) use ($testHtml) {
-            return Http::response( $testHtml, 200);
+            return Http::response($testHtml, 200);
         });
 
         /**task
@@ -134,23 +135,22 @@ class ExampleTest extends TestCase
         ]);
     }
 
-//    public function testViewPageOnCheck(): void
-//    {
-//
-//        $domainName = "https://google.com";
-//        $id = DB::table('urls')->insertGetId([
-//            'name' => $domainName,
-//            'created_at' => CarbonImmutable::now(),
-//            'updated_at' => CarbonImmutable::now()
-//        ]);
-//        $checks = DB::table('urls_checks')->insertGetId([
-//            'urls_id' => $id,
-//            'created_at' => CarbonImmutable::now(),
-//            'updated_at' => CarbonImmutable::now()
-//        ]);
-//        $response = $this
-//            ->get('urls/1', ['url' => ['name' => $domainName]]);
-//        $response->assertSeeText('1')->assertStatus(200);
-//        $response->assertSessionHasNoErrors();
-//    }
-//}
+    public function testViewPageOnCheck(): void
+    {
+        $domainName = "https://google.com";
+        $id = DB::table('urls')->insertGetId([
+            'name' => $domainName,
+            'created_at' => CarbonImmutable::now(),
+            'updated_at' => CarbonImmutable::now()
+        ]);
+        $checks = DB::table('urls_checks')->insertGetId([
+            'urls_id' => $id,
+            'created_at' => CarbonImmutable::now(),
+            'updated_at' => CarbonImmutable::now()
+        ]);
+        $response = $this
+            ->get('urls/1', ['url' => ['name' => $domainName]]);
+        $response->assertSeeText('1')->assertStatus(200);
+        $response->assertSessionHasNoErrors();
+    }
+}
