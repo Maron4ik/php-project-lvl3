@@ -22,7 +22,7 @@ Route::post('/urls', function (Request $request, Response $response): RedirectRe
     $parsedUrl = parse_url($validated['name']);
     $host = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
     $url = DB::table('urls')->where('name', $host)->first();
-    if ($url) {
+    if (isset($url)) {
         $id = $url->id;
         flash('Сайт существует')->success();
         return redirect(route('urls.show', ['id' => $id]));
