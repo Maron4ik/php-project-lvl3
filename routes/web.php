@@ -22,7 +22,7 @@ Route::post('/urls', function (Request $request, Response $response): RedirectRe
     $parsedUrl = parse_url($validated['name']);
     $host = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
     $url = DB::table('urls')->where('name', $host)->first();
-    if (isset($url)) {
+    if (!is_null($url)) {
         $id = $url->id;
         flash('Сайт существует')->success();
         return redirect(route('urls.show', ['id' => $id]));
@@ -44,7 +44,7 @@ Route::get('/urls', function (): View {
 Route::get('/urls/{id}', function (Request $request) {
     route('urls.show', ['id' => 2, 'page' => 1]);
     $id = $request->route('id');
-    if (!DB::table('urls')->find($id)) {
+    if (is_null(DB::table('urls')->find($id))) {
         return response('Такого адреса не существует', 404)
             ->header('Content-Type', 'text/plain');
     }

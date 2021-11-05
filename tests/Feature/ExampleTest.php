@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Carbon\CarbonImmutable;
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -93,7 +94,7 @@ class ExampleTest extends TestCase
         ]);
 
         $testHtml = file_get_contents(__DIR__ . '/../fixtures/test.html');
-        Http::fake(function ($request) use ($testHtml) {
+        Http::fake(function ($request) use ($testHtml): PromiseInterface {
             return Http::response($testHtml, 200);
         });
 
