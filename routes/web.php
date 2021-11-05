@@ -44,7 +44,7 @@ Route::get('/urls', function (): View {
 Route::get('/urls/{id}', function (Request $request) {
     route('urls.show', ['id' => 2, 'page' => 1]);
     $id = $request->route('id');
-    if (is_null(DB::table('urls')->find($id))) {
+    if (is_null(DB::table('urls')->find((int) $id))) {
         return response('Такого адреса не существует', 404)
             ->header('Content-Type', 'text/plain');
     }
@@ -59,7 +59,7 @@ Route::get('/urls/{id}', function (Request $request) {
 
 Route::post('urls/{id}/checks', function (Request $request): RedirectResponse {
     $urlId = $request->route('id');
-    $url = DB::table('urls')->find($urlId);
+    $url = DB::table('urls')->find((int) $urlId);
     $domain = $url->name;
     $status = Http::get($domain)->status();
     $data = Http::get($domain);

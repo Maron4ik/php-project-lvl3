@@ -95,7 +95,7 @@ class ExampleTest extends TestCase
 
         $testHtml = file_get_contents(__DIR__ . '/../fixtures/test.html');
         Http::fake(function ($request) use ($testHtml): PromiseInterface {
-            return Http::response($testHtml, 200);
+            return Http::response((string) $testHtml, 200);
         });
 
         /**task
