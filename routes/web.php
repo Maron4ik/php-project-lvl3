@@ -2,17 +2,19 @@
 
 use Carbon\CarbonImmutable;
 use DiDom\Document;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
-Route::get('/', function () {
+Route::get('/', function (): View {
     return view('welcome');
 })->name('home.index');
 
-Route::post('/urls', function (Request $request, Response $response) {
+Route::post('/urls', function (Request $request, Response $response): RedirectResponse {
     $name = $request->url;
     $validated = validator($name, [
         'name' => ['required', 'string', 'max:255', 'url']
@@ -33,13 +35,13 @@ Route::post('/urls', function (Request $request, Response $response) {
     return redirect(route('urls.show', ['id' => $id]));
 })->name('urls.store');
 
-Route::get('/urls', function (Request $request, Response $response) {
+Route::get('/urls', function (): View {
     $names = DB::table('urls')
         ->get();
     return view('urls', ['names' => $names]);
 })->name('urls.index');
 
-Route::get('/urls/{id}', function (Request $request, Response $response) {
+Route::get('/urls/{id}', function (Request $request) {
     route('urls.show', ['id' => 2, 'page' => 1]);
     $id = $request->route('id');
     if (!DB::table('urls')->find($id)) {
@@ -55,7 +57,7 @@ Route::get('/urls/{id}', function (Request $request, Response $response) {
     return view('url', ['name' => $name[0], 'checks' => $checks]);
 })->name('urls.show');
 
-Route::post('urls/{id}/checks', function (Request $request) {
+Route::post('urls/{id}/checks', function (Request $request): RedirectResponse {
     $urlId = $request->route('id');
     $url = DB::table('urls')->find($urlId);
     $domain = $url->name;
