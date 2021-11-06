@@ -4,7 +4,6 @@ use Carbon\CarbonImmutable;
 use DiDom\Document;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -48,10 +47,10 @@ Route::get('/urls/{id}', function (Request $request) {
             ->header('Content-Type', 'text/plain');
     }
     $checks = DB::table('url_checks')
-        ->where('url_id', '=', $id)
+        ->where('url_id', $id)
         ->get();
     $name = DB::table('urls')
-        ->where('id', '=', $id)
+        ->where('id', $id)
         ->get();
     return view('url', ['name' => $name[0], 'checks' => $checks]);
 })->name('urls.show');
