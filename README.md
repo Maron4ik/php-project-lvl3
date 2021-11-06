@@ -1,6 +1,36 @@
-### Hexlet tests and linter status:
+<h1 align="center">page-seo-analyzer</h1> <br>
+<h3 align="center">
+
 [![Actions Status](https://github.com/Maron4ik/php-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/Maron4ik/php-project-lvl3/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3c897e21f0e940ea82ed/maintainability)](https://codeclimate.com/github/Maron4ik/php-project-lvl3/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/3c897e21f0e940ea82ed/test_coverage)](https://codeclimate.com/github/Maron4ik/php-project-lvl3/test_coverage)
-https://page-analaizer.herokuapp.com/
+<img src="https://img.shields.io/badge/HRs-welcome-brightgreen.svg?style=flat">
+<img src="https://img.shields.io/badge/maron-seo-green">
 
+</h3>
+
+### [live](https://page-analaizer.herokuapp.com/)
+
+### Description
+
+It's my third practice work on Hexlet.
+
+Page Analyzer is a small web application, based on laravel
+
+### How to use
+
+[![seo.md.gif](https://s8.gifyu.com/images/seo.md.gif)](https://gifyu.com/image/e15I)
+
+
+### While doing this project, I got to know:
+
+- **Laravel**
+- **Testing**
+- **Deploy on Heroku**
+- **Routing**
+- **Validating**
+- **Carbon**
+- **Bootstrap**
+- **Query Builder**
+- **Flash Messages**
+- **PostgreSQL**
+- **DiDOM**
