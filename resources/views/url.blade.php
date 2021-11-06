@@ -957,8 +957,8 @@
                     <th>{{ $check->status_code}}</th>
                     <th>{{ $check->h1}}</th>
                     <th>{{ $check->title}}</th>
-                    <th>{{ $check->description}}</th>
-                    <td>{{ $check->created_at}} </td>
+                    <th><div class="col-12 text-wrap">{{ $check->description}}</div></th>
+                    <td>{{ $check->created_at}}</td>
                 </tr>
             @endforeach
                         </tbody></table>
