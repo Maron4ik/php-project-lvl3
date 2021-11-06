@@ -41,7 +41,7 @@ Route::get('/urls', function (): View {
 
 Route::get('/urls/{id}', function (Request $request) {
     $id = (int)$request->route('id');
-    if (is_null(DB::table('urls')->find((int) $id))) {
+    if (is_null(DB::table('urls')->find($id))) {
         return response('Такого адреса не существует', 404);
     }
     $checks = DB::table('url_checks')
