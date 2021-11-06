@@ -18,7 +18,7 @@ Page Analyzer is a small web application, based on laravel
 
 ### How to use
 
-[![seo.md.gif](https://s8.gifyu.com/images/seo.md.gif)](https://gifyu.com/image/e15I)
+![me](./resources/img/seo2.gif)
 
 
 ### While doing this project, I got to know:
