@@ -940,9 +940,23 @@
                 <tr>
                     <td>{{ $check->id }}</td>
                     <th>{{ $check->status_code}}</th>
-                    <th>{{ $check->h1}}</th>
-                    <th>{{ $check->title}}</th>
-                    <th><div class="col-12 text-wrap">{{ $check->description}}</div></th>
+                    @if($check->h1 === 'h1 not found')
+                    <th class="text-danger">{{ $check->h1 }}</th>
+                    @else
+                        <th>{{ $check->h1 }}</th>
+                    @endif
+
+                    @if($check->title === 'title not found')
+                        <th class="text-danger">{{ $check->title }}</th>
+                    @else
+                        <th>{{ $check->title }}</th>
+                    @endif
+
+                    @if($check->description === 'description not found')
+                        <th class="text-danger"><div class="col-12 text-wrap">{{ $check->description}}</div></th>
+                    @else
+                        <th><div class="col-12 text-wrap">{{ $check->description}}</div></th>
+                    @endif
                     <td>{{ $check->created_at}}</td>
                 </tr>
             @endforeach

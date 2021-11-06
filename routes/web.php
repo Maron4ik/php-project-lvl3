@@ -60,9 +60,12 @@ Route::post('urls/{id}/checks', function (Request $request): RedirectResponse {
     $status = $domainResponse->status();
     $response_body = $domainResponse->body();
     $document = new Document($response_body);
-    $h1 = optional($document->first('h1'))->text();
-    $title = optional($document->first('title'))->text();
-    $description = optional($document->first('meta[name=description]'))->attr('content');
+    $getH1 = optional($document->first('h1'))->text();
+    $h1 = is_null($getH1) ? 'h1 not found' : $getH1;
+    $getTitle = optional($document->first('title'))->text();
+    $title = is_null($getTitle) ? 'title not found' : $getTitle;
+    $getDescription = optional($document->first('meta[name=description]'))->attr('content');
+    $description = is_null($getDescription) ? 'description not found' : $getDescription;
     DB::table('url_checks')->insertGetId([
         'url_id' => $urlId,
         'status_code' => $status,
