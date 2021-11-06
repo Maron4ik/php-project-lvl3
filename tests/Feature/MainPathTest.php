@@ -20,7 +20,7 @@ class MainPathTest extends TestCase
      */
     public function testMainPath(): void
     {
-        $response = $this->get('/');
+        $response = $this->get(route('home.index'));
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
     }

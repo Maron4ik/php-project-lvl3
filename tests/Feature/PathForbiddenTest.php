@@ -20,7 +20,7 @@ class PathForbiddenTest extends TestCase
      */
     public function testIdPathForbidden(): void
     {
-        $response = $this->get('/urls/fight');
+        $response = $this->get('/urls/forbidden');
         $response->assertStatus(404);
         $response->assertSessionHasNoErrors();
     }

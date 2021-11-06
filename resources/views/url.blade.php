@@ -884,60 +884,45 @@
 <body class="min-vh-100 d-flex flex-column">
 <header class="flex-shrink-0">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="https://php-l3-page-analyzer.herokuapp.com">Анализатор страниц</a>
+        <a class="navbar-brand" href="/">Анализатор страниц</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " href="/">Главная</a>
+                    <a class="nav-link " href="{{ route('home.index') }}">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/urls">Сайты</a>
+                    <a class="nav-link " href="{{ route('urls.index') }}">Сайты</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
-{{--@if($errors->any())--}}
-{{--    <div class="alert alert-danger fs-2">--}}
-{{--        <ul>--}}
-{{--            @foreach($errors->all() as $message)--}}
-{{--                <li>--}}
-{{--                    {{ $message }}--}}
-{{--                </li>--}}
-{{--            @endforeach--}}
-{{--        </ul>--}}
-{{--    </div>--}}
-{{--@else--}}
-{{--    <div class="alert alert-success text-uppercase fs-2">--}}
-{{--        domain added--}}
-{{--    </div>--}}
-{{--@endif--}}
 @include('flash::message')
 <main class="flex-grow-1">
     <div class="container-lg">
-        <h1 class="mt-5 mb-3">Сайт: {{ $name->name }}</h1>
+        <h1 class="mt-5 mb-3">Сайт: {{ $domain->name }}</h1>
         <div class="table-responsive">
             <table class="table table-bordered table-hover text-nowrap">
                 <tbody><tr>
                     <td>ID</td>
-                    <td>{{ $name->id }}</td>
+                    <td>{{ $domain->id }}</td>
                 </tr>
                 <tr>
                     <td>Имя</td>
-                    <td>{{ $name->name }}</td>
+                    <td>{{ $domain->name }}</td>
                 </tr>
                 <tr>
                     <td>Дата создания</td>
-                    <td>{{ $name->created_at }}</td>
+                    <td>{{ $domain->created_at }}</td>
                 </tr>
                 </tbody></table>
         </div>
         <h2 class="mt-5 mb-3">Проверки</h2>
         @include('flash::message')
-        <form method="post" action="{{ route('checks.store', ['id' => $name->id]) }}">
+        <form method="post" action="{{ route('checks.store', ['id' => $domain->id]) }}">
             @csrf
             <input type="submit" class="btn btn-primary" value="Запустить проверку">
         </form>
@@ -968,7 +953,7 @@
 <footer class="border-top py-3 mt-5 flex-shrink-0">
     <div class="container-lg">
         <div class="text-center">
-            <a href="https://hexlet.io/pages/about" target="_blank">Hexlet</a>
+            <a href="{{ route('home.index') }}" target="_blank">Maron Alexey</a>
         </div>
     </div>
 </footer>

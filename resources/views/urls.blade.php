@@ -1780,10 +1780,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " href="/">Главная</a>
+                    <a class="nav-link " href="{{ route('home.index') }}">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/urls">Сайты</a>
+                    <a class="nav-link active" href="{{ route('urls.index') }}">Сайты</a>
                 </li>
             </ul>
         </div>
@@ -1801,11 +1801,11 @@
                     <th>Последняя проверка</th>
                     <th>Код ответа</th>
                 </tr>
-                @foreach($names as $name)
+                @foreach($domains as $domain)
                     <tr>
-                        <td>{{ $name->id}}</td>
-                        <td><a href="/urls/{{ $name->id}}">{{ $name->name }}</a></td>
-                        <td>{{ $name->created_at}} </td>
+                        <td>{{ $domain->id}}</td>
+                        <td><a href="/urls/{{ $domain->id}}">{{ $domain->name }}</a></td>
+                        <td>{{ $domain->created_at}} </td>
                         <td>200</td>
                     </tr>
                 @endforeach
@@ -1818,7 +1818,7 @@
 <footer class="border-top py-3 mt-5 flex-shrink-0">
     <div class="container-lg">
         <div class="text-center">
-            <a href="https://hexlet.io/pages/about" target="_blank">Hexlet</a>
+            <a href="{{ route('home.index') }}" target="_blank">Maron Alexey</a>
         </div>
     </div>
 </footer>

@@ -36,7 +36,6 @@ class ViewPageOnCheck extends TestCase
         ]);
         $response = $this
             ->get('urls/1', ['url' => ['name' => $domainName]]);
-        $response->assertSeeText('1')->assertStatus(200);
         $response->assertSessionHasNoErrors();
     }
 }

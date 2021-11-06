@@ -2885,10 +2885,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">Главная</a>
+                    <a class="nav-link active" href="{{ route('home.index') }}">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/urls">Сайты</a>
+                    <a class="nav-link " href="{{ route('urls.index') }}">Сайты</a>
                 </li>
             </ul>
         </div>
@@ -2928,7 +2928,7 @@
 <footer class="border-top py-3 mt-5 flex-shrink-0">
     <div class="container-lg">
         <div class="text-center">
-            <a href="/" target="_blank">Maron Alexey</a>
+            <a href="{{ route('home.index') }}" target="_blank">Maron Alexey</a>
         </div>
     </div>
 </footer>

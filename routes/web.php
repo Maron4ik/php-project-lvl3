@@ -14,17 +14,16 @@ Route::get('/', function (): View {
 })->name('home.index');
 
 Route::post('/urls', function (Request $request): RedirectResponse {
-    $name = $request->url;
-    $validated = validator($name, [
+    $domaneName = $request->url;
+    $validated = validator($domaneName, [
         'name' => ['required', 'string', 'max:255', 'url']
     ])->validate();
     $parsedUrl = parse_url($validated['name']);
     $host = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
     $url = DB::table('urls')->where('name', $host)->first();
     if (!is_null($url)) {
-        $id = $url->id;
         flash('Сайт существует')->success();
-        return redirect(route('urls.show', ['id' => $id]));
+        return redirect(route('urls.show', ['id' => $url->id]));
     }
     $id = DB::table('urls')->insertGetId([
         'name' => $host,
@@ -35,38 +34,36 @@ Route::post('/urls', function (Request $request): RedirectResponse {
 })->name('urls.store');
 
 Route::get('/urls', function (): View {
-    $names = DB::table('urls')
+    $Domains = DB::table('urls')
         ->get();
-    return view('urls', ['names' => $names]);
+    return view('urls', ['domains' => $Domains]);
 })->name('urls.index');
 
 Route::get('/urls/{id}', function (Request $request) {
     $id = $request->route('id');
     if (is_null(DB::table('urls')->find((int) $id))) {
-        return response('Такого адреса не существует', 404)
-            ->header('Content-Type', 'text/plain');
+        return response('Такого адреса не существует', 404);
     }
     $checks = DB::table('url_checks')
         ->where('url_id', $id)
         ->get();
-    $name = DB::table('urls')
-        ->where('id', $id)
-        ->get();
-    return view('url', ['name' => $name[0], 'checks' => $checks]);
+    $domain = DB::table('urls')
+        ->find($id);
+    return view('url', ['domain' => $domain, 'checks' => $checks]);
 })->name('urls.show');
 
 Route::post('urls/{id}/checks', function (Request $request): RedirectResponse {
-    $urlId = $request->route('id');
-    $url = DB::table('urls')->find((int) $urlId);
+    $urlId = (int)$request->route('id');
+    $url = DB::table('urls')->find($urlId);
     $domain = $url->name;
-    $status = Http::get($domain)->status();
-    $data = Http::get($domain);
-    $response_body = $data->body();
+    $domainResponse = Http::get($domain);
+    $status = $domainResponse->status();
+    $response_body = $domainResponse->body();
     $document = new Document($response_body);
     $h1 = optional($document->first('h1'))->text();
     $title = optional($document->first('title'))->text();
     $description = optional($document->first('meta[name=description]'))->attr('content');
-    $id2 = DB::table('url_checks')->insertGetId([
+    DB::table('url_checks')->insertGetId([
         'url_id' => $urlId,
         'status_code' => $status,
         'h1' => $h1,
