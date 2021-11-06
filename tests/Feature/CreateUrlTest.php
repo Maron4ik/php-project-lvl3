@@ -23,7 +23,7 @@ class CreateUrlTest extends TestCase
         $domainName = "https://google.com";
         $response = $this
             ->followingRedirects()
-            ->post('/urls', ['url' => ['name' => $domainName]])
+            ->post(route('urls.store', ['url' => ['name' => $domainName]]))
             ->assertStatus(200);
         $response->assertSessionHasNoErrors();
 

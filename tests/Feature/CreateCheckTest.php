@@ -32,12 +32,13 @@ class CreateCheckTest extends TestCase
             'created_at' => CarbonImmutable::now(),
         ]);
         $testHtml = file_get_contents(__DIR__ . '/../fixtures/test.html');
-        Http::fake(function ($request) use ($testHtml): PromiseInterface {
-            return Http::response((string)$testHtml, 200);
+        Http::fake(function () use ($testHtml): PromiseInterface {
+            return Http::response((string)$testHtml);
         });
         $response = $this
             ->followingRedirects()
-            ->post(route('checks.store', ['id' => $id]))->assertStatus(200);
+            ->post(route('checks.store', ['id' => $id]))
+            ->assertStatus(200);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('url_checks', [
             'status_code' => 200,

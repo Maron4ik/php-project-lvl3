@@ -30,12 +30,25 @@ class ViewPageOnCheck extends TestCase
             'name' => $domainName,
             'created_at' => CarbonImmutable::now(),
         ]);
-        $checks = DB::table('url_checks')->insertGetId([
+        DB::table('url_checks')->insertGetId([
             'url_id' => $id,
+            'status_code' => 200,
+            'h1' => 'test h1',
+            'title' => 'test title',
+            'description' => 'test description',
             'created_at' => CarbonImmutable::now(),
         ]);
+        $text = ['https://google.com', 200, 'test h1', 'test title', 'test description'];
         $response = $this
-            ->get('urls/1', ['url' => ['name' => $domainName]]);
+            ->get(route('urls.show'), [
+                'domain' => ['name' => $domainName],
+                'checks' => [
+                    'status_code' => '200',
+                    'h1' => 'test h1',
+                    'title' => 'test title',
+                    'description' => 'test description',
+                ]]);
+        $response->assertSeeText($text);
         $response->assertSessionHasNoErrors();
     }
 }

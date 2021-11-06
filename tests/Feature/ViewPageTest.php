@@ -30,7 +30,7 @@ class ViewPageTest extends TestCase
             'created_at' => CarbonImmutable::now(),
         ]);
         $response = $this
-            ->post('/urls', ['url' => ['name' => $domainName]])
+            ->post(route('urls.store'), ['url' => ['name' => $domainName]])
             ->assertRedirect(route('urls.show', ['id' => $id]));
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseCount('urls', 1);

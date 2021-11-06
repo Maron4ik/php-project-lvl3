@@ -20,7 +20,7 @@ class UrlsPathTest extends TestCase
      */
     public function testUrlsPath(): void
     {
-        $response = $this->get('/urls');
+        $response = $this->get(route('urls.index'));
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
     }

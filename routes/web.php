@@ -44,9 +44,7 @@ Route::get('/urls/{id}', function (Request $request) {
     if (is_null(DB::table('urls')->find($id))) {
         return response('Такого адреса не существует', 404);
     }
-    $checks = DB::table('url_checks')
-        ->where('url_id', $id)
-        ->get();
+    $checks = DB::table('url_checks')->where('url_id', $id)->get();
     $domain = DB::table('urls')
         ->find($id);
     return view('url', ['domain' => $domain, 'checks' => $checks]);
