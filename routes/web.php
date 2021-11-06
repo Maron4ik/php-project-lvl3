@@ -40,7 +40,7 @@ Route::get('/urls', function (): View {
 })->name('urls.index');
 
 Route::get('/urls/{id}', function (Request $request) {
-    $id = $request->route('id');
+    $id = (int)$request->route('id');
     if (is_null(DB::table('urls')->find((int) $id))) {
         return response('Такого адреса не существует', 404);
     }
