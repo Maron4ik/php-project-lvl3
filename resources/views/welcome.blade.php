@@ -62,7 +62,7 @@
 <footer class="border-top py-3 mt-5 flex-shrink-0">
     <div class="container-lg">
         <div class="text-center">
-            <a href="{{ route('home.index') }}" target="_blank">Maron Alexey</a>
+            <a href="{{ route('home.index') }}" target="_blank">Maron</a>
         </div>
     </div>
 </footer>
