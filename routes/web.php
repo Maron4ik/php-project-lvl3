@@ -34,9 +34,22 @@ Route::post('/urls', function (Request $request): RedirectResponse {
 })->name('urls.store');
 
 Route::get('/urls', function (): View {
-    $Domains = DB::table('urls')
+    $domains = DB::table('urls')
         ->get();
-    return view('urls', ['domains' => $Domains]);
+    $checks = DB::table('url_checks')
+        ->get();
+//    $lastCheck = DB::table('domain_checks')
+//        ->where('url_id', $id)
+//        ->orderByDesc('created_at')
+//        ->limit(1)
+//        ->get()->first();
+    $checks = DB::table('url_checks')
+        ->whereIn('url_id', $domains->pluck('id'))
+        ->orderBy('created_at')
+        ->distinct('url_id')
+        ->get()
+        ->keyBy('url_id');
+    return view('urls', ['domains' => $domains, 'checks' => $checks]);
 })->name('urls.index');
 
 Route::get('/urls/{id}', function (Request $request) {

@@ -8,6 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
+
+
+<body class="d-flex flex-column min-vh-100">
+
 <header class="flex-shrink-0">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ route('home.index') }}">Анализатор страниц</a>
@@ -27,20 +31,22 @@
     </nav>
 </header>
 
-<body class="d-flex flex-column min-vh-100">
-@if($errors->any())
-    <div class="alert alert-danger fs-2">
-        <ul>
-            @foreach($errors->all() as $message)
-                <li>
-                    {{ $message }}
-                </li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-@include('flash::message')
+
+
+
 <main class="flex-grow-1">
+    @if($errors->any())
+        <div class="alert alert-danger fs-2">
+            <ul>
+                @foreach($errors->all() as $message)
+                    <li>
+                        {{ $message }}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @include('flash::message')
     <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="container-lg">
             <div class="row">
@@ -59,15 +65,19 @@
     </div>
 </main>
 <div class="wrapper flex-grow-1"></div>
+
+
 <footer class="border-top py-3 mt-5 flex-shrink-0">
     <div class="container-lg">
         <div class="text-center">
-            <a href="{{ route('home.index') }}" target="_blank">Maron</a>
+            <a href="{{ route('home.index') }}" target="_blank">Maron Alexey</a>
         </div>
     </div>
 </footer>
-</body>
+
 <script src="chrome-extension://ehemiojjcpldeipjhjkepfdaohajpbdo/firebug-lite.js" id="FirebugLite" firebugignore="true"
         extension="Chrome" extension-id="ehemiojjcpldeipjhjkepfdaohajpbdo"></script>
 <script src="chrome-extension://ehemiojjcpldeipjhjkepfdaohajpbdo/googleChrome.js"></script>
+</body>
+
 </html>

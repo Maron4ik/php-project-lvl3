@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\CreatesApplication;
 
-class ViewPageOnCheck extends TestCase
+class ViewPageOnCheckTest extends TestCase
 {
     use CreatesApplication;
     use DatabaseTransactions;
@@ -40,7 +40,7 @@ class ViewPageOnCheck extends TestCase
         ]);
         $text = ['https://google.com', 200, 'test h1', 'test title', 'test description'];
         $response = $this
-            ->get(route('urls.show'), [
+            ->get(route('urls.show', ['id' => $id]), [
                 'domain' => ['name' => $domainName],
                 'checks' => [
                     'status_code' => '200',

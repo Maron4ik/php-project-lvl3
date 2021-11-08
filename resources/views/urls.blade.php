@@ -42,9 +42,9 @@
                 @foreach($domains as $domain)
                     <tr>
                         <td>{{ $domain->id}}</td>
-                        <td><a href="/urls/{{ $domain->id}}">{{ $domain->name }}</a></td>
-                        <td>{{ $domain->created_at}} </td>
-                        <td>200</td>
+                        <td><a href="{{ route('urls.show', $domain->id) }}">{{ $domain->name }}</a></td>
+                        <td>{{ $checks[$domain->id]->created_at }}</td>
+                        <td>{{ $checks[$domain->id]->status_code }}</td>
                     </tr>
                 @endforeach
 
