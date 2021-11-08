@@ -26,7 +26,7 @@ class CreateCheckTest extends TestCase
      */
     public function testCreateCheck(): void
     {
-        $domainName = "https://google.com";
+        $domainName = "	https://ksp.co.il";
         $id = DB::table('urls')->insertGetId([
             'name' => $domainName,
             'created_at' => CarbonImmutable::now(),
