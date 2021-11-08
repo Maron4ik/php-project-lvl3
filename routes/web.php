@@ -37,15 +37,8 @@ Route::get('/urls', function (): View {
     $domains = DB::table('urls')
         ->get();
     $checks = DB::table('url_checks')
-        ->get();
-//    $lastCheck = DB::table('domain_checks')
-//        ->where('url_id', $id)
-//        ->orderByDesc('created_at')
-//        ->limit(1)
-//        ->get()->first();
-    $checks = DB::table('url_checks')
         ->whereIn('url_id', $domains->pluck('id'))
-        ->orderBy('created_at')
+        ->orderByDesc('created_at')
         ->distinct('url_id')
         ->get()
         ->keyBy('url_id');
