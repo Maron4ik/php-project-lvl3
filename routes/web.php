@@ -38,7 +38,7 @@ Route::get('/urls', function (): View {
         ->get();
     $checks = DB::table('url_checks')
         ->whereIn('url_id', $domains->pluck('id'))
-        ->orderByDesc('created_at')
+        ->orderBy('created_at')
         ->get()
         ->keyBy('url_id');
     return view('urls', ['domains' => $domains, 'checks' => $checks]);
