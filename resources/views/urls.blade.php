@@ -20,7 +20,6 @@
                         <td>{{ $checks[$domain->id]->status_code }}</td>
                     </tr>
                 @endforeach
-
                 </tbody></table>
         </div>
     </div>
